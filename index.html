@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthSync - Smart Care, Simpler Scheduling</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-50 flex flex-col font-sans">
+
+  <!-- Navigation -->
+  <nav class="flex items-center justify-between px-8 py-6">
+    <div class="flex items-center gap-2">
+      <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      </svg>
+      <span class="text-2xl font-bold text-blue-600">HealthSync</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="login.html" class="text-sm font-medium text-gray-600 hover:text-gray-900">Login</a>
+      <a href="signup.html" class="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="flex-1 flex flex-col lg:flex-row items-center justify-between px-8 lg:px-24 py-12 gap-12">
+    
+    <!-- Text Content -->
+    <div class="w-full lg:w-1/2 flex flex-col items-start space-y-6">
+      <span class="px-4 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full uppercase tracking-wide">Next-Gen Healthcare</span>
+      
+      <h1 class="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+        Smart Care, <br/>
+        <span class="text-blue-600">Simpler Scheduling</span>
+      </h1>
+      
+      <p class="text-lg text-gray-600 max-w-lg leading-relaxed">
+        Experience the future of healthcare. Book appointments instantly, receive AI-driven clinical summaries, and never miss a follow-up with intelligent reminders.
+      </p>
+
+      <a href="signup.html" class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors group">
+        Get Started 
+        <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+
+      <!-- Badges -->
+      <div class="flex items-center gap-8 pt-8">
+        <div class="flex items-center gap-2 text-gray-700 font-medium">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          Instant Booking
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 font-medium">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          AI Insights
+        </div>
+      </div>
+    </div>
+
+    <!-- Image -->
+    <div class="w-full lg:w-1/2 relative">
+      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1000" alt="Doctor using smartphone" class="rounded-3xl shadow-2xl object-cover w-full h-full max-h-[600px]">
+    </div>
+
+  </main>
+
+</body>
+</html>

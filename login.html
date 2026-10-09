@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthSync Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-screen flex bg-gray-50">
+
+  <!-- Left Side: Login Form -->
+  <div class="w-full lg:w-1/2 flex flex-col justify-center px-12 sm:px-24 xl:px-32 bg-gray-50">
+    <div class="max-w-md w-full mx-auto">
+      
+      <!-- Logo -->
+      <div class="flex items-center gap-2 mb-8">
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+        <span class="text-2xl font-bold text-blue-600">HealthSync</span>
+      </div>
+
+      <!-- Heading -->
+      <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Sign in to your account</h2>
+      <p class="text-sm text-gray-600 mb-8">
+        Or <a href="signup.html" class="font-medium text-blue-600 hover:text-blue-500">register for a new account</a>
+      </p>
+
+      <!-- Form -->
+      <form class="space-y-6" action="#" method="POST">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+          <div class="mt-1">
+            <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+          </div>
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <div class="mt-1">
+            <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+          </div>
+        </div>
+
+        <div>
+          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Sign in
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right Side: Fixed Image -->
+  <div class="hidden lg:block relative w-1/2">
+    <!-- I replaced the broken path with a working image url -->
+    <img class="absolute inset-0 h-full w-full object-cover" src="./healthcare.jpg" alt="Healthcare professionals">
+  </div>
+
+</body>
+</html>
