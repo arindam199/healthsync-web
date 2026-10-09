@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard - HealthSync</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="db.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="flex items-center gap-2">
+          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          <span class="text-xl font-bold text-blue-600">HealthSync Patient</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span id="user-greeting" class="text-gray-700 font-medium"></span>
+          <button onclick="logoutUser()" class="text-sm text-red-600 hover:text-red-800 font-medium">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8">
+    
+    <!-- Left Column: Book Appointment -->
+    <div class="w-full md:w-1/3">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">Book an Appointment</h2>
+        <form id="book-form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Doctor</label>
+            <select id="doctor" required class="mt-1 block w-full pl-3 pr-10 py-2 border-gray-300 border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+              <option value="Dr. Smith (Cardiology)">Dr. Smith (Cardiology)</option>
+              <option value="Dr. Jones (Pediatrics)">Dr. Jones (Pediatrics)</option>
+              <option value="Dr. Lee (General)">Dr. Lee (General)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Date</label>
+            <input type="date" id="date" required class="mt-1 block w-full border-gray-300 border rounded-md px-3 py-2 sm:text-sm">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Time</label>
+            <input type="time" id="time" required class="mt-1 block w-full border-gray-300 border rounded-md px-3 py-2 sm:text-sm">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Reason</label>
+            <textarea id="reason" rows="3" required class="mt-1 block w-full border-gray-300 border rounded-md px-3 py-2 sm:text-sm" placeholder="Briefly describe your symptoms..."></textarea>
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition">Book Now</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right Column: My Appointments -->
+    <div class="w-full md:w-2/3">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">My Appointments</h2>
+        <div id="appointments-list" class="space-y-4">
+          <!-- Appointments will be rendered here -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const user = getCurrentUser();
+    if (!user || user.role !== 'Patient') {
+      window.location.href = 'login.html';
+    }
+
+    document.getElementById('user-greeting').textContent = 'Hello, ' + user.name;
+
+    function renderAppointments() {
+      const appointments = getPatientAppointments(user.id);
+      const list = document.getElementById('appointments-list');
+      
+      if (appointments.length === 0) {
+        list.innerHTML = '<p class="text-gray-500 italic">No appointments booked yet.</p>';
+        return;
+      }
+
+      list.innerHTML = appointments.map(apt => `
+        <div class="border border-gray-200 rounded-lg p-4 flex justify-between items-center bg-gray-50">
+          <div>
+            <p class="font-bold text-gray-900">${apt.doctorName}</p>
+            <p class="text-sm text-gray-600">${apt.date} at ${apt.time}</p>
+            <p class="text-sm text-gray-500 mt-1">Reason: ${apt.reason}</p>
+          </div>
+          <div>
+            <span class="px-3 py-1 text-xs font-semibold rounded-full 
+              ${apt.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 
+                apt.status === 'Confirmed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+              ${apt.status}
+            </span>
+          </div>
+        </div>
+      `).reverse().join('');
+    }
+
+    document.getElementById('book-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const doctor = document.getElementById('doctor').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const reason = document.getElementById('reason').value;
+
+      bookAppointment(user.id, user.name, doctor, date, time, reason);
+      
+      document.getElementById('book-form').reset();
+      renderAppointments();
+    });
+
+    // Initial render
+    renderAppointments();
+  </script>
+</body>
+</html>

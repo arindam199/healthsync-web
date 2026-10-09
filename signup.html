@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HealthSync - Create an account</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="db.js"></script>
 </head>
 <body class="h-screen flex bg-gray-50">
 
@@ -26,26 +27,28 @@
         Already have an account? <a href="login.html" class="font-medium text-blue-600 hover:text-blue-500">Sign in instead</a>
       </p>
 
+      <div id="error-message" class="hidden mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md p-3"></div>
+
       <!-- Form -->
-      <form class="space-y-4" action="#" method="POST">
+      <form id="signup-form" class="space-y-4">
         <div>
           <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
           <div class="mt-1">
-            <input id="name" name="name" type="text" autocomplete="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <input id="name" name="name" type="text" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
           </div>
         </div>
 
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
           <div class="mt-1">
-            <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <input id="email" name="email" type="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
           </div>
         </div>
 
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
           <div class="mt-1">
-            <input id="password" name="password" type="password" autocomplete="new-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <input id="password" name="password" type="password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
           </div>
         </div>
 
@@ -53,8 +56,8 @@
           <label for="role" class="block text-sm font-medium text-gray-700">I am a...</label>
           <div class="mt-1">
             <select id="role" name="role" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md border">
-              <option>Patient</option>
-              <option>Doctor</option>
+              <option value="Patient">Patient</option>
+              <option value="Doctor">Doctor</option>
             </select>
           </div>
         </div>
@@ -70,9 +73,33 @@
 
   <!-- Right Side: Image -->
   <div class="hidden lg:block relative w-1/2">
-    <!-- Using an image of a doctor holding a stethoscope, matching the screenshot -->
     <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&q=80&w=2000" alt="Doctor with stethoscope">
   </div>
 
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const role = document.getElementById('role').value;
+
+      const result = registerUser(name, email, password, role);
+      
+      if (result.success) {
+        // Automatically login and redirect
+        loginUser(email, password);
+        if (role === 'Patient') {
+          window.location.href = 'patient-dashboard.html';
+        } else {
+          window.location.href = 'doctor-dashboard.html';
+        }
+      } else {
+        const errorEl = document.getElementById('error-message');
+        errorEl.textContent = result.message;
+        errorEl.classList.remove('hidden');
+      }
+    });
+  </script>
 </body>
 </html>
